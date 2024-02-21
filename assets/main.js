@@ -1,0 +1,57 @@
+$(document).ready(function() {
+    $("#carousel-imagens").slick({
+        autoplay: true,
+    })
+    
+    $('.menu-hamburgue').click(function() {
+        $('nav').slideToggle()
+    })
+
+    $('#telefone').mask('(00) 00000-0000')
+
+    $('form').validate({
+        rules: {
+            nome: {
+                required: true
+            },
+            email: {
+                required: true
+            },
+            telefone: {
+                required: true
+            },
+             mensagem: {
+                required: true
+             },
+             veiculosDeInteresse: {
+                required: false
+             }
+        },
+        messages: {
+            nome: 'Por favor, insira seu nome',
+            telefone: 'Por favor, insira o número de telefone',
+            email: 'Por favor, insira seu e-mail',
+            mensagem: 'Por favor, insira uma mensagem'
+        },
+        submitHandler: function(form) {
+            console.log(form)
+        },
+        invalidHandler: function(evento, validador) {
+            let camposIncorretos = validador.numberOfInvalids()
+            if(camposIncorretos) {
+                alert(`Existem ${camposIncorretos} campos incorretos`)
+            }
+        }
+    })
+
+    $('.lista-veiculos button').click(function() {
+        const destino = $('#contato')
+
+        const nomeVeiculo = $(this).parent().find('h3').text()
+        $('#veiculo-interesse').val(nomeVeiculo)
+
+        $('html').animate({
+            scrollTop: destino.offset().top
+        }, 1000)
+    })
+})
